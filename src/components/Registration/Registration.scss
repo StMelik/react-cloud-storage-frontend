@@ -1,0 +1,39 @@
+@import "../../styles/colors.scss";
+
+.registration {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: calc(100vh - 70px);
+
+    &__wrapper {
+        width: 100%;
+        max-width: 550px;
+        padding: 25px 30px 20px;
+        background-color: #fff;
+        filter: drop-shadow(4px 4px 4px rgba(92, 92, 92, 0.25));
+        border-radius: 25px;
+    }
+
+    &__title {
+        font-size: 28px;
+        margin-bottom: 25px;
+        text-align: center;
+    }
+
+    &__form {
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    &__form-submit {
+        padding: 5px 25px;
+        font-size: 22px;
+        background-color: $text-color;
+        color: $bg-color;
+        align-self: flex-end;
+        border-radius: 15px;
+        font-weight: 700;
+    }
+}

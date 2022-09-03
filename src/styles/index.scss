@@ -35,6 +35,19 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+a {
+  color: inherit;
+  font: inherit;
+  transition: opacity 0.3s;
+  text-decoration: none;
+}
+
+button:hover,
+a:hover {
   opacity: 0.5;
+}
+
+input {
+  font: inherit;
+  color: inherit;
 }

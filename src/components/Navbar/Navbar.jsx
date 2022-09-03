@@ -1,4 +1,5 @@
 
+import { NavLink } from 'react-router-dom';
 import diskIcon from '../../assets/icons/disk-icon.svg'
 import './Navbar.scss';
 
@@ -9,8 +10,8 @@ function Navbar() {
                 <div className="nav__wrapper">
                     <img className="logo" src={diskIcon} alt="" />
                     <p className="nav__title">MERN CLOUD</p>
-                    <button className="nav__link">Войти</button>
-                    <button className="nav__link">Регистрация</button>
+                    <NavLink className="nav__link" to='/sign-in'>Войти</NavLink>
+                    <NavLink className="nav__link" to='/sign-up'>Регистрация</NavLink>
                 </div>
             </div>
         </nav>

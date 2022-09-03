@@ -1,0 +1,10 @@
+@import "../../styles/colors.scss";
+
+.input {
+    padding: 5px;
+    font-size: 18px;
+    font-weight: 700;
+    border: none;
+    border-bottom: 3px solid $text-color;
+    outline-color: $text-color;
+}
