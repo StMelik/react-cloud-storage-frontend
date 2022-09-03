@@ -1,16 +1,16 @@
 import { useInput } from '../../hooks/useInput';
 import { registration } from '../../utils/api';
 import Input from '../Input/Input';
-import './Registration.scss';
+import './Authorization.scss';
 
-function Registration() {
+function Authorization() {
     const { values, onChange } = useInput({ email: '', password: '' })
 
     return (
-        <div className="registration">
-            <div className="registration__wrapper">
-                <h1 className="registration__title">Регистрация</h1>
-                <form className='registration__form'>
+        <div className="authorization">
+            <div className="authorization__wrapper">
+                <h1 className="authorization__title">Регистрация</h1>
+                <form className='authorization__form'>
                     <Input
                         type='email'
                         placeholder="Введите E-mail"
@@ -26,7 +26,7 @@ function Registration() {
                         onInput={onChange}
                     />
                     <button
-                        className='registration__form-submit'
+                        className='authorization__form-submit'
                         type='button'
                         onClick={() => registration(values)}
                     >Зарегестрироваться</button>
@@ -36,4 +36,4 @@ function Registration() {
     );
 }
 
-export default Registration;
+export default Authorization;
