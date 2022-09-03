@@ -1,9 +1,10 @@
 import { useInput } from '../../hooks/useInput';
+import { registration } from '../../utils/api';
 import Input from '../Input/Input';
 import './Registration.scss';
 
 function Registration() {
-    const { values, onChange } = useInput({ name: '', password: '' })
+    const { values, onChange } = useInput({ email: '', password: '' })
 
     return (
         <div className="registration">
@@ -26,7 +27,8 @@ function Registration() {
                     />
                     <button
                         className='registration__form-submit'
-                        type='submit'
+                        type='button'
+                        onClick={() => registration(values)}
                     >Зарегестрироваться</button>
                 </form>
             </div>
