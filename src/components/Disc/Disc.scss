@@ -31,3 +31,13 @@
         }
     }
 }
+
+.drop-area {
+    height: calc(100vh - 70px - 40px);
+    margin: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 3px dashed $text-color;
+    font-size: 40px;
+}

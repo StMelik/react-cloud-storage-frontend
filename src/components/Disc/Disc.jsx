@@ -1,4 +1,5 @@
 
+import { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
@@ -14,6 +15,7 @@ function Disc() {
     const { isAuth } = useSelector(store => store.user)
     const { currentDir, files, popupOpened, dirStack } = useSelector(store => store.files)
     const dispatch = useDispatch()
+    const [dragEnter, setDragEnter] = useState(false)
 
     useEffect(() => {
         console.log('currentDir', currentDir);
@@ -34,8 +36,51 @@ function Disc() {
         files.forEach(file => dispatch(uploadFile(file, currentDir)))
     }
 
+    function handleDragEnter(event) {
+        event.preventDefault()
+        event.stopPropagation()
+        setDragEnter(true)
+    }
+
+    function handleDragLeave(event) {
+        event.preventDefault()
+        event.stopPropagation()
+        setDragEnter(false)
+    }
+
+    function handleDrop(event) {
+        event.preventDefault()
+        event.stopPropagation()
+        let files = [...event.dataTransfer.files]
+        files.forEach(file => dispatch(uploadFile(file, currentDir)))
+        setDragEnter(false)
+    }
+
+    if (dragEnter) {
+        return (
+            <div className="container">
+                <div
+                    className="drop-area"
+                    onDragEnter={handleDragEnter}
+                    onDragLeave={handleDragLeave}
+                    onDragOver={handleDragEnter}
+                    onDrop={handleDrop}
+                >
+                    Перетащите файлы сюда
+                </div>
+            </div>
+
+        )
+    }
+
     return (
-        <div className="disk">
+        <div
+            className="disk"
+            onDragEnter={handleDragEnter}
+            onDragLeave={handleDragLeave}
+            onDragOver={handleDragEnter}
+
+        >
             <div className="container">
                 <h2 className="disk__title">Videos</h2>
                 <div className="disk__menu">
