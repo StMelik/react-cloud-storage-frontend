@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { setUserAction } from '../store/reducers/userReducer'
-import { setFiles } from '../store/reducers/fileReducer'
+import { addFilrAction, setFiles } from '../store/reducers/fileReducer'
 import { apiConfig } from './apiConfig'
 
 export const registration = async (values) => {
@@ -58,6 +58,28 @@ export const getFiles = (dirId) => {
             })
 
             dispatch(setFiles(response.data))
+        } catch (e) {
+            alert('Ошибка! ' + e.response.data.message)
+        }
+    }
+}
+
+export const createDir = (dirId, name) => {
+    return async (dispatch) => {
+        try {
+            const response = await axios.post('files',
+                { name, parent: dirId, type: 'dir' },
+                {
+                    ...apiConfig,
+                    params: {
+                        parent: dirId
+                    },
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('jwt')}`
+                    }
+                })
+
+            dispatch(addFilrAction(response.data))
         } catch (e) {
             alert('Ошибка! ' + e.response.data.message)
         }
