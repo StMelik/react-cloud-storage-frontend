@@ -5,7 +5,7 @@ import { NavLink } from 'react-router-dom';
 import diskIcon from '../../assets/icons/disk-icon.svg'
 import { setCurrentDir, setPopupOpenedAction } from '../../store/reducers/fileReducer';
 import { logoutAction } from '../../store/reducers/userReducer';
-import { createDir, getFiles } from '../../utils/api';
+import { createDir, getFiles, uploadFile } from '../../utils/api';
 import Popup from '../Popup/Popup';
 import './Disc.scss';
 import FileList from './FileList/FileList';
@@ -29,6 +29,11 @@ function Disc() {
         dispatch(setCurrentDir(backDirId))
     }
 
+    function handleFileUpload(event) {
+        const files = [...event.target.files]
+        files.forEach(file => dispatch(uploadFile(file, currentDir)))
+    }
+
     return (
         <div className="disk">
             <div className="container">
@@ -42,6 +47,14 @@ function Disc() {
                         className="disk__button"
                         onClick={handleOpenPopup}
                     >Создать новую папку</button>
+                    <label className='disk__upload'>
+                        Загрузить файл
+                        <input
+                            type="file"
+                            onChange={handleFileUpload}
+                            multiple
+                        />
+                    </label>
                 </div>
                 <FileList files={files} />
             </div>

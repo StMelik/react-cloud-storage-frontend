@@ -1,3 +1,5 @@
+@import "../../styles/colors.scss";
+
 .disk {
     padding-top: 25px;
 
@@ -17,5 +19,15 @@
         color: black;
         border-radius: 50px;
         font-size: 14px;
+    }
+
+    &__upload {
+        border: 2px dashed $text-color;
+        padding: 5px 15px;
+        cursor: pointer;
+
+        input {
+            display: none;
+        }
     }
 }

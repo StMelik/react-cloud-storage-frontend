@@ -85,3 +85,38 @@ export const createDir = (dirId, name) => {
         }
     }
 }
+
+export const uploadFile = (file, dirId) => {
+    return async (dispatch) => {
+        try {
+            const formData = new FormData()
+            formData.append('file', file)
+
+            if (dirId) {
+                formData.append('parent', dirId)
+            }
+
+            const response = await axios.post('files/upload',
+                formData,
+                {
+                    ...apiConfig,
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('jwt')}`
+                    },
+                    onUploadProgress: ProgressEvent => {
+                        const totalLength = ProgressEvent.lengthComputable ? ProgressEvent.total : ProgressEvent.target.getResponseHeader('content-length') || ProgressEvent.target.getResponseHeader('x-decompressed-content-length')
+                        console.log('totalLength', totalLength);
+
+                        if (totalLength) {
+                            let progress = Math.round((ProgressEvent.loaded * 100) / totalLength)
+                            console.log('progress', progress);
+                        }
+                    }
+                })
+
+            dispatch(addFilrAction(response.data))
+        } catch (e) {
+            alert('Ошибка! ' + e.response.data.message)
+        }
+    }
+}
