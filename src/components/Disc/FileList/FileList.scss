@@ -1,0 +1,21 @@
+.file-list {
+    &__header {
+        display: grid;
+        grid-template-columns: 1fr 4fr repeat(4, 1fr);
+        font-size: 14px;
+        justify-items: center;
+    }
+    &__header-name {
+        grid-column-start: 2;
+        justify-self: start;
+        margin-left: 20px;
+    }
+    &__header-date {
+        grid-column-start: 5;
+    }
+    &__header-size {
+        grid-column-start: 6;
+    }
+    &__list {
+    }
+}

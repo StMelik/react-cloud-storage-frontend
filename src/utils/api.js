@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { setUserAction } from '../store/reducers/userReducer'
+import { setFiles } from '../store/reducers/fileReducer'
 import { apiConfig } from './apiConfig'
 
 export const registration = async (values) => {
@@ -38,6 +39,26 @@ export const auth = () => {
             localStorage.setItem('jwt', response.data.token)
         } catch (e) {
             localStorage.removeItem('jwt')
+            alert('Ошибка! ' + e.response.data.message)
+        }
+    }
+}
+
+export const getFiles = (dirId) => {
+    return async (dispatch) => {
+        try {
+            const response = await axios.get('files', {
+                ...apiConfig,
+                params: {
+                    parent: dirId
+                },
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('jwt')}`
+                }
+            })
+
+            dispatch(setFiles(response.data))
+        } catch (e) {
             alert('Ошибка! ' + e.response.data.message)
         }
     }

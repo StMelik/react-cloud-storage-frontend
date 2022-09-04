@@ -1,0 +1,39 @@
+@import "../../../../styles/colors.scss";
+
+.file-item {
+    display: grid;
+    grid-template-columns: 1fr 4fr repeat(4, 1fr);
+    border-bottom: 2px solid $text-color;
+    padding: 10px 0;
+    justify-items: center;
+    align-items: center;
+    font-size: 14px;
+
+    &__icon {
+        grid-column-start: 1;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        width: 48px;
+        height: 48px;
+
+        &_dir {
+            background-image: url("../../../../assets/icons/folder-icon.svg");
+        }
+        &_file {
+            background-image: url("../../../../assets/icons/file-icon.svg");
+        }
+    }
+    &__name {
+        grid-column-start: 2;
+        justify-self: start;
+        margin-left: 20px;
+        font-size: 18px;
+    }
+    &__date {
+        grid-column-start: 5;
+    }
+    &__size {
+        grid-column-start: 6;
+    }
+}

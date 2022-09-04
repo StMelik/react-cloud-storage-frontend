@@ -1,11 +1,12 @@
 import './App.css';
 import Navbar from './Navbar/Navbar';
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, Navigate } from 'react-router-dom'
 import Authorization from './Authorization/Authorization';
 import Login from './Authorization/Login';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { auth } from '../utils/api';
+import Disc from './Disc/Disc';
 
 function App() {
   const { isAuth } = useSelector(store => store.user)
@@ -22,21 +23,28 @@ function App() {
   return (
     <div className="app">
       <Navbar />
-      <Routes>
-        {!isAuth &&
-          <>
-            <Route
-              path='/sign-up'
-              element={<Authorization />}
-            />
-            <Route
-              path='/sign-in'
-              element={<Login />}
-            />
-          </>
-        }
+      {!isAuth ?
+        <Routes>
+          <Route
+            path='/sign-up'
+            element={<Authorization />}
+          />
+          <Route
+            path='/sign-in'
+            element={<Login />}
+          />
+          <Route path='*' element={<Navigate to='/sign-in' replace />} />
+        </Routes>
+        :
+        <Routes>
+          <Route
+            path='/'
+            element={<Disc />}
+          />
+          <Route path='*' element={<Navigate to='/' replace />} />
+        </Routes>
+      }
 
-      </Routes>
     </div>
   );
 }
