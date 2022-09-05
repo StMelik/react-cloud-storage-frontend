@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { setUserAction } from '../store/reducers/userReducer'
-import { addFilrAction, setFiles } from '../store/reducers/fileReducer'
+import { addFilrAction, deleteFileAction, setFiles } from '../store/reducers/fileReducer'
 import { apiConfig } from './apiConfig'
 
 export const registration = async (values) => {
@@ -145,5 +145,27 @@ export const downloadFile = async (file) => {
 
     } catch (e) {
         alert('Ошибка! ' + e.response.data.message)
+    }
+}
+
+export const deleteFile = (file) => {
+    return async (dispatch) => {
+        try {
+            const response = await axios.delete('files',
+                {
+                    ...apiConfig,
+                    params: {
+                        id: file._id
+                    },
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('jwt')}`
+                    },
+                })
+
+            dispatch(deleteFileAction(file._id))
+            alert(response.data.message)
+        } catch (e) {
+            alert('Ошибка! ' + e.response.data.message)
+        }
     }
 }

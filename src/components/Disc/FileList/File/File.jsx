@@ -2,7 +2,7 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { pushToStackAction, setCurrentDir } from '../../../../store/reducers/fileReducer';
-import { downloadFile } from '../../../../utils/api';
+import { deleteFile, downloadFile } from '../../../../utils/api';
 // import diskIcon from '../../assets/icons/disk-icon.svg'
 // import { logoutAction } from '../../store/reducers/userReducer';
 import './File.scss';
@@ -26,6 +26,11 @@ function File({ file }) {
         downloadFile(file)
     }
 
+    function handleDeleteFile(evt) {
+        evt.stopPropagation()
+        dispatch(deleteFile(file))
+    }
+
     return (
         <li className="file-item" onClick={handleOpenDir}>
             <div className={iconCl} />
@@ -38,7 +43,10 @@ function File({ file }) {
                 />
             }
 
-            <button className="file-item__button file-item__button_delete" />
+            <button
+                className="file-item__button file-item__button_delete"
+                onClick={handleDeleteFile}
+            />
 
             <p className="file-item__date">{file.date.slice(0, 10)}</p>
             <p className="file-item__size">{file.size}</p>
