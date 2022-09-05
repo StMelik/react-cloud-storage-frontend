@@ -36,4 +36,29 @@
     &__size {
         grid-column-start: 6;
     }
+    &__button {
+        width: 58px;
+        height: 34px;
+        border: 1px solid $text-color;
+        border-radius: 100px;
+        background-repeat: no-repeat;
+        background-position: center;
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+    &__button_download {
+        background-image: url("../../../../assets/icons/download-icon.svg");
+        background-size: 28px;
+    }
+    &__button_delete {
+        background-image: url("../../../../assets/icons/delete-icon.svg");
+        background-size: 16px;
+        grid-column-start: 4;
+    }
+
+    &:hover &__button {
+        visibility: visible;
+        opacity: 1;
+    }
 }

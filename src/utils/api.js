@@ -120,3 +120,30 @@ export const uploadFile = (file, dirId) => {
         }
     }
 }
+
+export const downloadFile = async (file) => {
+    try {
+        const response = await axios.get('files/download',
+            {
+                ...apiConfig,
+                params: {
+                    id: file._id
+                },
+                responseType: 'blob',
+                headers: {
+                    Authorization: `Bearer ${localStorage.getItem('jwt')}`
+                }
+            })
+
+        const downloadLink = URL.createObjectURL(response.data)
+        const linkElement = document.createElement('a')
+        linkElement.href = downloadLink
+        linkElement.download = file.name
+        document.body.appendChild(linkElement)
+        linkElement.click()
+        linkElement.remove()
+
+    } catch (e) {
+        alert('Ошибка! ' + e.response.data.message)
+    }
+}
