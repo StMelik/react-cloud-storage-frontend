@@ -46,13 +46,14 @@ export const auth = () => {
     }
 }
 
-export const getFiles = (dirId) => {
+export const getFiles = (dirId, sort) => {
     return async (dispatch) => {
         try {
             const response = await axios.get('files', {
                 ...apiConfig,
                 params: {
-                    parent: dirId
+                    parent: dirId,
+                    sort
                 },
                 headers: {
                     Authorization: `Bearer ${localStorage.getItem('jwt')}`

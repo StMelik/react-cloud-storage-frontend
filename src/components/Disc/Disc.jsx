@@ -17,11 +17,11 @@ function Disc() {
     const { currentDir, files, popupOpened, dirStack } = useSelector(store => store.files)
     const dispatch = useDispatch()
     const [dragEnter, setDragEnter] = useState(false)
+    const [sort, setSort] = useState('name')
 
     useEffect(() => {
-        console.log('currentDir', currentDir);
-        dispatch(getFiles(currentDir))
-    }, [currentDir])
+        dispatch(getFiles(currentDir, sort))
+    }, [currentDir, sort])
 
     function handleOpenPopup() {
         dispatch(setPopupOpenedAction(true))
@@ -101,6 +101,15 @@ function Disc() {
                             multiple
                         />
                     </label>
+                    <select
+                        className='disk__select'
+                        value={sort}
+                        onChange={(e) => setSort(e.target.value)}
+                    >
+                        <option value="name">По имени</option>
+                        <option value="type">По типу</option>
+                        <option value="date">По дате</option>
+                    </select>
                 </div>
                 <FileList files={files} />
             </div>
