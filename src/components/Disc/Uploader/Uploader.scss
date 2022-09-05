@@ -1,0 +1,89 @@
+@import "../../../styles/colors.scss";
+
+.uploader {
+    height: 300px;
+    width: 300px;
+    position: fixed;
+    background-color: $text-color;
+    color: $bg-color;
+    bottom: 0;
+    right: 0;
+    padding: 20px;
+    border-radius: 15px;
+    overflow-y: auto;
+    overflow-x: hidden;
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 15px;
+    }
+
+    &__title {
+        font-size: 22px;
+        font-weight: 400;
+    }
+
+    // &__close {
+    //     background-repeat: no-repeat;
+    //     background-position: center;
+    //     background-size: cover;
+    //     background-image: url("../../../assets/icons/close-icon.svg");
+    //     width: 25px;
+    //     height: 25px;
+    // }
+
+    &__list {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+    }
+}
+
+.upload-file {
+    background-color: $bg-color;
+    color: $text-color;
+    border-radius: 10px;
+    padding: 5px 10px;
+
+    &__header {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 5px;
+    }
+
+    &__name {
+        font-size: 18px;
+        font-weight: 500;
+    }
+
+    &__remove {
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        background-image: url("../../../assets/icons/close-icon.svg");
+        width: 20px;
+        height: 20px;
+    }
+
+    &__progress-bar {
+        height: 15px;
+        border-radius: 100px;
+        background-color: $text-color;
+        display: flex;
+    }
+
+    &__upload-bar {
+        background-color: green;
+        width: 50%;
+        border-radius: 100px;
+    }
+
+    &__percent {
+        color: $bg-color;
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 14px;
+    }
+}

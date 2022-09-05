@@ -2,6 +2,8 @@ import axios from 'axios'
 import { setUserAction } from '../store/reducers/userReducer'
 import { addFilrAction, deleteFileAction, setFiles } from '../store/reducers/fileReducer'
 import { apiConfig } from './apiConfig'
+import { addUploadFileAction, changeUploadFileAction, showUploaderAction } from '../store/reducers/uploadReducer'
+import uniqid from 'uniqid';
 
 export const registration = async (values) => {
     try {
@@ -96,6 +98,14 @@ export const uploadFile = (file, dirId) => {
                 formData.append('parent', dirId)
             }
 
+            const uploadFile = {
+                id: uniqid(),
+                name: file.name,
+                progress: 0
+            }
+            dispatch(showUploaderAction())
+            dispatch(addUploadFileAction(uploadFile))
+
             const response = await axios.post('files/upload',
                 formData,
                 {
@@ -108,8 +118,8 @@ export const uploadFile = (file, dirId) => {
                         console.log('totalLength', totalLength);
 
                         if (totalLength) {
-                            let progress = Math.round((ProgressEvent.loaded * 100) / totalLength)
-                            console.log('progress', progress);
+                            uploadFile.progress = Math.round((ProgressEvent.loaded * 100) / totalLength)
+                            dispatch(changeUploadFileAction(uploadFile))
                         }
                     }
                 })

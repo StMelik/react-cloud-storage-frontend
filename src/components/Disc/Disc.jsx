@@ -10,6 +10,7 @@ import { createDir, getFiles, uploadFile } from '../../utils/api';
 import Popup from '../Popup/Popup';
 import './Disc.scss';
 import FileList from './FileList/FileList';
+import Uploader from './Uploader/Uploader';
 
 function Disc() {
     const { isAuth } = useSelector(store => store.user)
@@ -106,6 +107,7 @@ function Disc() {
             {popupOpened &&
                 <Popup />
             }
+            <Uploader />
         </div>
     );
 }
