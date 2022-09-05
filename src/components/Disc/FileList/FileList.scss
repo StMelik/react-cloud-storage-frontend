@@ -19,3 +19,24 @@
     &__list {
     }
 }
+
+.file-enter {
+    opacity: 0;
+    transform: translateY(-50%);
+}
+
+.file-enter-active {
+    animation: file-enter 0.5s forwards;
+}
+
+@keyframes file-enter {
+    from {
+        opacity: 0;
+        transform: translateY(-50%);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}

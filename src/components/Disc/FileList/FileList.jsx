@@ -5,6 +5,7 @@ import File from './File/File';
 // import diskIcon from '../../assets/icons/disk-icon.svg'
 // import { logoutAction } from '../../store/reducers/userReducer';
 import './FileList.scss';
+import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 function FileList({ files }) {
     const { isAuth } = useSelector(store => store.user)
@@ -17,15 +18,23 @@ function FileList({ files }) {
                 <p className="file-list__header-date">Дата</p>
                 <p className="file-list__header-size">Размер</p>
             </div>
-            <ul className="file-list__list">
-                {files.map((file, i) =>
-                    <File
-                        key={i}
-                        file={file}
-                    />
-                )}
+            <TransitionGroup
+                component='ul'
+                className="file-list__list"
+                exit={false}
+            >
 
-            </ul>
+                {files.map((file, i) =>
+                    <CSSTransition
+                        key={i}
+                        timeout={500}
+                        classNames="file"
+                    >
+                        <File file={file} />
+                    </CSSTransition>
+
+                )}
+            </TransitionGroup>
         </div>
 
     );

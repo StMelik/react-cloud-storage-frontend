@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import { pushToStackAction, setCurrentDir } from '../../../../store/reducers/fileReducer';
 import { deleteFile, downloadFile } from '../../../../utils/api';
+import { sizeFormat } from '../../../../utils/sizeFormat';
 // import diskIcon from '../../assets/icons/disk-icon.svg'
 // import { logoutAction } from '../../store/reducers/userReducer';
 import './File.scss';
@@ -49,7 +50,7 @@ function File({ file }) {
             />
 
             <p className="file-item__date">{file.date.slice(0, 10)}</p>
-            <p className="file-item__size">{file.size}</p>
+            <p className="file-item__size">{sizeFormat(file.size)}</p>
         </li>
     );
 }
