@@ -184,3 +184,26 @@ export const deleteFile = (file) => {
         }
     }
 }
+
+export const searchFile = (query) => {
+    return async (dispatch) => {
+        try {
+            const response = await axios.get('files/search',
+                {
+                    ...apiConfig,
+                    params: {
+                        search: query
+                    },
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('jwt')}`
+                    },
+                })
+
+            dispatch(setFiles(response.data))
+        } catch (e) {
+            alert('Ошибка! ' + e.response.data.message)
+        } finally {
+            dispatch(hideLoaderAction())
+        }
+    }
+}

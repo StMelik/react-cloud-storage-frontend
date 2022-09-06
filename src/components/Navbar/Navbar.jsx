@@ -1,13 +1,41 @@
 
+import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import diskIcon from '../../assets/icons/disk-icon.svg'
+import { showLoaderAction } from '../../store/reducers/appReducer';
 import { logoutAction } from '../../store/reducers/userReducer';
+import { getFiles, searchFile } from '../../utils/api';
 import './Navbar.scss';
 
 function Navbar() {
     const { isAuth } = useSelector(store => store.user)
+    const { currentDir } = useSelector(store => store.files)
     const dispatch = useDispatch()
+    const [searchTimeout, setSearchTimeout] = useState(false)
+    const [searchQuery, setSearchQuery] = useState('')
+
+    function handleSearchFile(e) {
+        const value = e.target.value
+
+        setSearchQuery(value)
+
+        if (searchTimeout !== false) {
+            clearTimeout(searchTimeout)
+        }
+
+        dispatch(showLoaderAction())
+
+        if (value !== '') {
+            setSearchTimeout(setTimeout((value) => {
+                dispatch(searchFile(value))
+            }, 500, value))
+        } else {
+            dispatch(getFiles(currentDir))
+        }
+
+
+    }
 
     return (
         <nav className="nav">
@@ -16,10 +44,21 @@ function Navbar() {
                     <img className="logo" src={diskIcon} alt="" />
                     <p className="nav__title">MERN CLOUD</p>
                     {isAuth ?
-                        <button
-                            className="nav__link"
-                            onClick={() => dispatch(logoutAction())}
-                        >Выйти</button>
+                        <>
+                            <input
+                                className='nav__search'
+                                placeholder='Введите название файла'
+                                type="text"
+                                value={searchQuery}
+                                onChange={handleSearchFile}
+                            />
+                            <button
+                                className="nav__link"
+                                onClick={() => dispatch(logoutAction())}
+                            >
+                                Выйти
+                            </button>
+                        </>
                         :
                         <>
                             <NavLink className="nav__link" to='/sign-in'>Войти</NavLink>

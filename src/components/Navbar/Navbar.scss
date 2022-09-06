@@ -5,6 +5,7 @@
     &__wrapper {
         display: flex;
         align-items: center;
+        justify-content: space-between;
         gap: 15px;
     }
 
@@ -20,5 +21,10 @@
         &:not(:last-of-type) {
             margin-right: 10px;
         }
+    }
+    &__search {
+        width: 200px;
+        padding: 5px 10px;
+        margin-right: auto;
     }
 }
