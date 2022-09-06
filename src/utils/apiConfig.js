@@ -1,3 +1,5 @@
+import { SERVER_URL } from "./constants";
+
 export const apiConfig = {
-    baseURL: 'http://localhost:5000',
+    baseURL: SERVER_URL,
 }
