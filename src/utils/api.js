@@ -207,3 +207,43 @@ export const searchFile = (query) => {
         }
     }
 }
+
+export const uploadAvatar = (file) => {
+    return async (dispatch) => {
+        try {
+            const formData = new FormData()
+            formData.append('file', file)
+
+            const response = await axios.post('files/avatar',
+                formData,
+                {
+                    ...apiConfig,
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('jwt')}`
+                    },
+                })
+
+            dispatch(setUserAction(response.data))
+        } catch (e) {
+            alert('Ошибка! ' + e.response.data.message)
+        }
+    }
+}
+
+export const deleteAvatar = () => {
+    return async (dispatch) => {
+        try {
+            const response = await axios.delete('files/avatar',
+                {
+                    ...apiConfig,
+                    headers: {
+                        Authorization: `Bearer ${localStorage.getItem('jwt')}`
+                    },
+                })
+
+            dispatch(setUserAction(response.data))
+        } catch (e) {
+            alert('Ошибка! ' + e.response.data.message)
+        }
+    }
+}

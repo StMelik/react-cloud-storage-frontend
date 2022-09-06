@@ -6,14 +6,19 @@ import diskIcon from '../../assets/icons/disk-icon.svg'
 import { showLoaderAction } from '../../store/reducers/appReducer';
 import { logoutAction } from '../../store/reducers/userReducer';
 import { getFiles, searchFile } from '../../utils/api';
+import { SERVER_URL } from '../../utils/constants';
 import './Navbar.scss';
+import avatarIcon from '../../assets/icons/avatar-icon.svg'
 
 function Navbar() {
-    const { isAuth } = useSelector(store => store.user)
+    const { isAuth, currentUser } = useSelector(store => store.user)
     const { currentDir } = useSelector(store => store.files)
     const dispatch = useDispatch()
     const [searchTimeout, setSearchTimeout] = useState(false)
     const [searchQuery, setSearchQuery] = useState('')
+    const avatarUrl = currentUser?.avatar
+        ? SERVER_URL + '/' + currentUser.avatar
+        : avatarIcon
 
     function handleSearchFile(e) {
         const value = e.target.value
@@ -41,8 +46,13 @@ function Navbar() {
         <nav className="nav">
             <div className="container">
                 <div className="nav__wrapper">
-                    <img className="logo" src={diskIcon} alt="" />
-                    <p className="nav__title">MERN CLOUD</p>
+                    {/* Исправить */}
+                    <NavLink to="/">
+                        <img className="logo" src={diskIcon} alt="" />
+                    </NavLink>
+                    <NavLink to="/">
+                        <p className="nav__title">MERN CLOUD</p>
+                    </NavLink>
                     {isAuth ?
                         <>
                             <input
@@ -52,12 +62,16 @@ function Navbar() {
                                 value={searchQuery}
                                 onChange={handleSearchFile}
                             />
+
                             <button
                                 className="nav__link"
                                 onClick={() => dispatch(logoutAction())}
                             >
                                 Выйти
                             </button>
+                            <NavLink to="/profile">
+                                <img className='nav__avatar' src={avatarUrl} alt="Аватар" />
+                            </NavLink>
                         </>
                         :
                         <>

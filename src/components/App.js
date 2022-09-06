@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { auth } from '../utils/api';
 import Disc from './Disc/Disc';
+import Profile from './Profile/Profile';
 
 function App() {
   const { isAuth } = useSelector(store => store.user)
@@ -37,10 +38,8 @@ function App() {
         </Routes>
         :
         <Routes>
-          <Route
-            path='/'
-            element={<Disc />}
-          />
+          <Route path='/' element={<Disc />} />
+          <Route path='/profile' element={<Profile />} />
           <Route path='*' element={<Navigate to='/' replace />} />
         </Routes>
       }
