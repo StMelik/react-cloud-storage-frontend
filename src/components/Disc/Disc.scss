@@ -10,6 +10,7 @@
     }
     &__menu {
         display: flex;
+        align-items: center;
         gap: 15px;
         margin-bottom: 25px;
     }
@@ -28,6 +29,21 @@
 
         input {
             display: none;
+        }
+    }
+
+    &__view-button {
+        width: 20px;
+        height: 20px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+
+        &_grid {
+            background-image: url("../../assets/icons/big-grid-icon.svg");
+        }
+        &_list {
+            background-image: url("../../assets/icons/list-icon.svg");
         }
     }
 }

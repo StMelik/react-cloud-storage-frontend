@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { NavLink } from 'react-router-dom';
 import diskIcon from '../../assets/icons/disk-icon.svg'
-import { setCurrentDir, setPopupOpenedAction } from '../../store/reducers/fileReducer';
+import { setCurrentDir, setPopupOpenedAction, setViewAction } from '../../store/reducers/fileReducer';
 import { logoutAction } from '../../store/reducers/userReducer';
 import { createDir, getFiles, uploadFile } from '../../utils/api';
 import Popup from '../Popup/Popup';
@@ -118,6 +118,14 @@ function Disc() {
                         <option value="type">По типу</option>
                         <option value="date">По дате</option>
                     </select>
+                    <button
+                        className="disk__view-button disk__view-button_list"
+                        onClick={() => dispatch(setViewAction('list'))}
+                    />
+                    <button
+                        className="disk__view-button disk__view-button_grid"
+                        onClick={() => dispatch(setViewAction('grid'))}
+                    />
                 </div>
                 <FileList files={files} />
             </div>

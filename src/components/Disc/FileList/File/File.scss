@@ -62,3 +62,49 @@
         opacity: 1;
     }
 }
+
+.file-item-grid {
+    width: 150px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    &__icon {
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+        width: 100px;
+        height: 100px;
+
+        &_dir {
+            background-image: url("../../../../assets/icons/folder-icon.svg");
+        }
+        &_file {
+            background-image: url("../../../../assets/icons/file-icon.svg");
+        }
+    }
+    &__button {
+        width: 58px;
+        height: 34px;
+        border: 1px solid $text-color;
+        border-radius: 100px;
+        background-repeat: no-repeat;
+        background-position: center;
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+    &__button_download {
+        background-image: url("../../../../assets/icons/download-icon.svg");
+        background-size: 28px;
+    }
+    &__button_delete {
+        background-image: url("../../../../assets/icons/delete-icon.svg");
+        background-size: 16px;
+    }
+    &:hover &__button {
+        visibility: visible;
+        opacity: 1;
+    }
+}

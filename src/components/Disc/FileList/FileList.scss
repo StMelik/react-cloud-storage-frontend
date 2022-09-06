@@ -20,6 +20,11 @@
     }
 }
 
+.file-grid {
+    display: flex;
+    flex-wrap: wrap;
+}
+
 .file-enter {
     opacity: 0;
     transform: translateY(-50%);
