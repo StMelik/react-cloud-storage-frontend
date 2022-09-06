@@ -13,7 +13,7 @@ import FileList from './FileList/FileList';
 import Uploader from './Uploader/Uploader';
 
 function Disc() {
-    const { isAuth } = useSelector(store => store.user)
+    const { loader } = useSelector(store => store.app)
     const { currentDir, files, popupOpened, dirStack } = useSelector(store => store.files)
     const dispatch = useDispatch()
     const [dragEnter, setDragEnter] = useState(false)
@@ -55,6 +55,14 @@ function Disc() {
         let files = [...event.dataTransfer.files]
         files.forEach(file => dispatch(uploadFile(file, currentDir)))
         setDragEnter(false)
+    }
+
+    if (loader) {
+        return (
+            <div className='loader'>
+                <div class="lds-dual-ring"></div>
+            </div>
+        )
     }
 
     if (dragEnter) {

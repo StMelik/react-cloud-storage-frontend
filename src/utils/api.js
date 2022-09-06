@@ -4,6 +4,7 @@ import { addFilrAction, deleteFileAction, setFiles } from '../store/reducers/fil
 import { apiConfig } from './apiConfig'
 import { addUploadFileAction, changeUploadFileAction, showUploaderAction } from '../store/reducers/uploadReducer'
 import uniqid from 'uniqid';
+import { hideLoaderAction, showLoaderAction } from '../store/reducers/appReducer'
 
 export const registration = async (values) => {
     try {
@@ -49,6 +50,7 @@ export const auth = () => {
 export const getFiles = (dirId, sort) => {
     return async (dispatch) => {
         try {
+            dispatch(showLoaderAction())
             const response = await axios.get('files', {
                 ...apiConfig,
                 params: {
@@ -63,6 +65,8 @@ export const getFiles = (dirId, sort) => {
             dispatch(setFiles(response.data))
         } catch (e) {
             alert('Ошибка! ' + e.response.data.message)
+        } finally {
+            dispatch(hideLoaderAction())
         }
     }
 }
