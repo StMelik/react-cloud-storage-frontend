@@ -11,6 +11,10 @@ function FileList({ files }) {
     const { isAuth } = useSelector(store => store.user)
     const dispatch = useDispatch()
 
+    if (files.length === 0) {
+        return <p className="empty">Файлы не найдены</p>
+    }
+
     return (
         <div className='file-list'>
             <div className="file-list__header">
