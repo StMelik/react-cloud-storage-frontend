@@ -20,16 +20,17 @@ function Navbar() {
         ? SERVER_URL + '/' + currentUser.avatar
         : avatarIcon
 
+    const linkCl = ["nav__link", "nav__link_active"]
+
     function handleSearchFile(e) {
         const value = e.target.value
 
         setSearchQuery(value)
+        dispatch(showLoaderAction())
 
         if (searchTimeout !== false) {
             clearTimeout(searchTimeout)
         }
-
-        dispatch(showLoaderAction())
 
         if (value !== '') {
             setSearchTimeout(setTimeout((value) => {
@@ -38,46 +39,61 @@ function Navbar() {
         } else {
             dispatch(getFiles(currentDir))
         }
+    }
 
-
+    function handleLogoutClick() {
+        dispatch(logoutAction())
     }
 
     return (
         <nav className="nav">
             <div className="container">
                 <div className="nav__wrapper">
-                    {/* Исправить */}
-                    <NavLink to="/">
-                        <img className="logo" src={diskIcon} alt="" />
-                    </NavLink>
-                    <NavLink to="/">
+                    <NavLink
+                        to="/"
+                        className="nav__logo-link"
+                    >
+                        <img className="logo" src={diskIcon} alt="Логотип" />
                         <p className="nav__title">MERN CLOUD</p>
                     </NavLink>
+
                     {isAuth ?
                         <>
                             <input
                                 className='nav__search'
-                                placeholder='Введите название файла'
+                                placeholder='Название файла'
                                 type="text"
                                 value={searchQuery}
                                 onChange={handleSearchFile}
                             />
-
-                            <button
-                                className="nav__link"
-                                onClick={() => dispatch(logoutAction())}
-                            >
-                                Выйти
-                            </button>
-                            <NavLink to="/profile">
-                                <img className='nav__avatar' src={avatarUrl} alt="Аватар" />
-                            </NavLink>
+                            <div className="nav__buttons">
+                                <button
+                                    className="nav__link"
+                                    onClick={handleLogoutClick}
+                                >
+                                    Выйти
+                                </button>
+                                <NavLink to="/profile">
+                                    <img className='nav__avatar' src={avatarUrl} alt="Аватар" />
+                                </NavLink>
+                            </div>
                         </>
                         :
-                        <>
-                            <NavLink className="nav__link" to='/sign-in'>Войти</NavLink>
-                            <NavLink className="nav__link" to='/sign-up'>Регистрация</NavLink>
-                        </>
+                        <div className="nav__buttons">
+                            <NavLink
+                                className={({ isActive }) =>
+                                    isActive ? linkCl.join(' ') : linkCl[0]
+                                }
+                                to='/sign-in'
+                            >Войти</NavLink>
+
+                            <NavLink
+                                className={({ isActive }) =>
+                                    isActive ? linkCl.join(' ') : linkCl[0]
+                                }
+                                to='/sign-up'
+                            >Регистрация</NavLink>
+                        </div>
                     }
                 </div>
             </div>

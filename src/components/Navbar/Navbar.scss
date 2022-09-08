@@ -1,3 +1,5 @@
+@import "../../styles/colors.scss";
+
 .nav {
     background-color: #fff;
     padding: 10px 0;
@@ -9,24 +11,41 @@
         gap: 15px;
     }
 
+    &__logo-link {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+    }
+
     &__title {
         font-weight: 700;
-        font-size: 20px;
-        margin-right: auto;
+        font-size: 24px;
     }
+
+    &__buttons {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+    }
+
     &__link {
         font-weight: 700;
         font-size: 20px;
 
-        &:not(:last-of-type) {
-            margin-right: 10px;
+        &_active {
+            text-decoration: underline;
         }
     }
+
     &__search {
-        width: 200px;
+        width: 300px;
         padding: 5px 10px;
-        margin-right: auto;
+        border-radius: 8px;
+        border: 1px solid $text-color;
+        font-size: 18px;
+        outline-color: $text-color;
     }
+
     &__avatar {
         display: block;
         width: 50px;
