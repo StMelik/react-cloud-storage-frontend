@@ -1,12 +1,8 @@
-
-import { useState } from 'react';
-import { useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
-import diskIcon from '../../assets/icons/disk-icon.svg'
+import { getFilesAction, uploadFileAction } from '../../store/actions/fileActions';
 import { setCurrentDir, setPopupOpenedAction, setViewAction } from '../../store/reducers/fileReducer';
-import { logoutAction } from '../../store/reducers/userReducer';
-import { createDir, getFiles, uploadFile } from '../../utils/api';
+import Loader from '../Loader/Loader';
 import Popup from '../Popup/Popup';
 import './Disc.scss';
 import FileList from './FileList/FileList';
@@ -17,10 +13,11 @@ function Disc() {
     const { currentDir, files, popupOpened, dirStack } = useSelector(store => store.files)
     const dispatch = useDispatch()
     const [dragEnter, setDragEnter] = useState(false)
-    const [sort, setSort] = useState('name')
+    const [sort, setSort] = useState('type')
 
     useEffect(() => {
-        dispatch(getFiles(currentDir, sort))
+        dispatch(getFilesAction(currentDir, sort))
+        // eslint-disable-next-line
     }, [currentDir, sort])
 
     function handleOpenPopup() {
@@ -34,7 +31,7 @@ function Disc() {
 
     function handleFileUpload(event) {
         const files = [...event.target.files]
-        files.forEach(file => dispatch(uploadFile(file, currentDir)))
+        files.forEach(file => dispatch(uploadFileAction(file, currentDir)))
     }
 
     function handleDragEnter(event) {
@@ -53,14 +50,14 @@ function Disc() {
         event.preventDefault()
         event.stopPropagation()
         let files = [...event.dataTransfer.files]
-        files.forEach(file => dispatch(uploadFile(file, currentDir)))
+        files.forEach(file => dispatch(uploadFileAction(file, currentDir)))
         setDragEnter(false)
     }
 
     if (loader) {
         return (
-            <div className='loader'>
-                <div class="lds-dual-ring"></div>
+            <div className='disk__loader'>
+                <Loader />
             </div>
         )
     }
@@ -78,60 +75,60 @@ function Disc() {
                     Перетащите файлы сюда
                 </div>
             </div>
-
         )
     }
 
     return (
-        <div
-            className="disk"
-            onDragEnter={handleDragEnter}
-            onDragLeave={handleDragLeave}
-            onDragOver={handleDragEnter}
-
-        >
+        <div className="disk">
             <div className="container">
-                <h2 className="disk__title">Videos</h2>
-                <div className="disk__menu">
-                    <button
-                        className="disk__button"
-                        onClick={handleClickBack}
-                    >Назад</button>
-                    <button
-                        className="disk__button"
-                        onClick={handleOpenPopup}
-                    >Создать новую папку</button>
-                    <label className='disk__upload'>
-                        Загрузить файл
-                        <input
-                            type="file"
-                            onChange={handleFileUpload}
-                            multiple
+                <div
+                    className="disk__wrapper"
+                    onDragEnter={handleDragEnter}
+                    onDragLeave={handleDragLeave}
+                    onDragOver={handleDragEnter}
+                >
+                    <h2 className="disk__title">{'Моя музыка -> Любимые -> Гуф'}</h2>
+                    <div className="disk__menu">
+                        {currentDir &&
+                            <button
+                                className="disk__button disk__button_back"
+                                onClick={handleClickBack}
+                            />
+                        }
+
+                        <button
+                            className="disk__button disk__button_add-folder"
+                            onClick={handleOpenPopup}
                         />
-                    </label>
-                    <select
-                        className='disk__select'
-                        value={sort}
-                        onChange={(e) => setSort(e.target.value)}
-                    >
-                        <option value="name">По имени</option>
-                        <option value="type">По типу</option>
-                        <option value="date">По дате</option>
-                    </select>
-                    <button
-                        className="disk__view-button disk__view-button_list"
-                        onClick={() => dispatch(setViewAction('list'))}
-                    />
-                    <button
-                        className="disk__view-button disk__view-button_grid"
-                        onClick={() => dispatch(setViewAction('grid'))}
-                    />
+                        <label className='disk__upload disk__button disk__button_add-file'>
+                            <input
+                                type="file"
+                                onChange={handleFileUpload}
+                                multiple
+                            />
+                        </label>
+                        <select
+                            className='disk__select'
+                            value={sort}
+                            onChange={(e) => setSort(e.target.value)}
+                        >
+                            <option value="type">По типу</option>
+                            <option value="name">По имени</option>
+                            <option value="date">По дате</option>
+                        </select>
+                        <button
+                            className="disk__view-button disk__view-button_list"
+                            onClick={() => dispatch(setViewAction('list'))}
+                        />
+                        <button
+                            className="disk__view-button disk__view-button_grid"
+                            onClick={() => dispatch(setViewAction('grid'))}
+                        />
+                    </div>
+                    <FileList files={files} />
                 </div>
-                <FileList files={files} />
             </div>
-            {popupOpened &&
-                <Popup />
-            }
+            {popupOpened && <Popup />}
             <Uploader />
         </div>
     );

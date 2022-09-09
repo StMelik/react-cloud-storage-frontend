@@ -5,9 +5,9 @@ import Authorization from './Authorization/Authorization';
 import Login from './Authorization/Login';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
-import { auth } from '../utils/api';
 import Disc from './Disc/Disc';
 import Profile from './Profile/Profile';
+import { authAction } from '../store/actions/userActions';
 
 function App() {
   const { isAuth } = useSelector(store => store.user)
@@ -16,7 +16,7 @@ function App() {
   useEffect(() => {
     const token = localStorage.getItem('jwt')
     if (token) {
-      dispatch(auth())
+      dispatch(authAction())
     }
   }, [])
 

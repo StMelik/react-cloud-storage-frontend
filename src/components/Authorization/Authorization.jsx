@@ -1,5 +1,5 @@
 import { useInput } from '../../hooks/useInput';
-import { registration } from '../../utils/api';
+import { registration } from '../../store/actions/userActions';
 import Input from '../Input/Input';
 import './Authorization.scss';
 

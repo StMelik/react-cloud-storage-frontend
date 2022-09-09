@@ -2,12 +2,17 @@
 
 .file-item {
     display: grid;
-    grid-template-columns: 1fr 4fr repeat(4, 1fr);
+    grid-template-columns: 70px 4fr repeat(2, 58px) repeat(2, 1fr);
     border-bottom: 2px solid $text-color;
+    gap: 15px;
     padding: 10px 0;
     justify-items: center;
     align-items: center;
     font-size: 14px;
+
+    &_dir {
+        cursor: pointer;
+    }
 
     &__icon {
         grid-column-start: 1;
@@ -24,18 +29,23 @@
             background-image: url("../../../../assets/icons/file-icon.svg");
         }
     }
+
     &__name {
         grid-column-start: 2;
         justify-self: start;
-        margin-left: 20px;
         font-size: 18px;
+        max-width: 566px;
+        overflow-wrap: break-word;
     }
+
     &__date {
         grid-column-start: 5;
     }
+
     &__size {
         grid-column-start: 6;
     }
+
     &__button {
         width: 58px;
         height: 34px;
@@ -45,12 +55,13 @@
         background-position: center;
         visibility: hidden;
         opacity: 0;
-        transition: opacity 0.3s;
     }
+
     &__button_download {
         background-image: url("../../../../assets/icons/download-icon.svg");
         background-size: 28px;
     }
+
     &__button_delete {
         background-image: url("../../../../assets/icons/delete-icon.svg");
         background-size: 16px;
@@ -76,14 +87,31 @@
         background-size: cover;
         width: 100px;
         height: 100px;
+        flex-shrink: 0;
 
         &_dir {
             background-image: url("../../../../assets/icons/folder-icon.svg");
         }
+
         &_file {
             background-image: url("../../../../assets/icons/file-icon.svg");
         }
     }
+
+    &__name {
+        text-align: center;
+        max-width: 100px;
+    }
+
+    &__buttons {
+        margin-top: 3px;
+        display: flex;
+        gap: 5px;
+        visibility: hidden;
+        opacity: 0;
+        transition: opacity 0.3s;
+    }
+
     &__button {
         width: 58px;
         height: 34px;
@@ -91,19 +119,19 @@
         border-radius: 100px;
         background-repeat: no-repeat;
         background-position: center;
-        visibility: hidden;
-        opacity: 0;
-        transition: opacity 0.3s;
     }
+
     &__button_download {
         background-image: url("../../../../assets/icons/download-icon.svg");
         background-size: 28px;
     }
+
     &__button_delete {
         background-image: url("../../../../assets/icons/delete-icon.svg");
         background-size: 16px;
     }
-    &:hover &__button {
+
+    &:hover &__buttons {
         visibility: visible;
         opacity: 1;
     }

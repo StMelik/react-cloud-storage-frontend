@@ -18,7 +18,7 @@ function Uploader() {
                 <button
                     className='uploader__close'
                     onClick={handleCloseUploader}
-                >X</button>
+                />
             </div>
             <ul className='uploader__list'>
                 {files.map((file) =>

@@ -1,9 +1,5 @@
-
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
 import File from './File/File';
-// import diskIcon from '../../assets/icons/disk-icon.svg'
-// import { logoutAction } from '../../store/reducers/userReducer';
 import './FileList.scss';
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
@@ -51,8 +47,6 @@ function FileList({ files }) {
             </ul>
         );
     }
-
-
 }
 
 export default FileList;

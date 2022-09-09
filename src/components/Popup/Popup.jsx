@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useInput } from '../../hooks/useInput';
+import { createDirAction } from '../../store/actions/fileActions';
 import { setPopupOpenedAction } from '../../store/reducers/fileReducer';
-import { createDir } from '../../utils/api';
 import Input from '../Input/Input';
 import './Popup.scss';
 
@@ -15,8 +14,9 @@ function Popup() {
         dispatch(setPopupOpenedAction(false))
     }
 
-    function handleCreateDir() {
-        dispatch(createDir(currentDir, dirName))
+    function handleCreateDir(e) {
+        e.preventDefault()
+        dispatch(createDirAction(currentDir, dirName))
         closePopup()
         setDirName('')
     }
@@ -37,15 +37,21 @@ function Popup() {
                         onClick={closePopup}
                     />
                 </div>
-                <Input
-                    placeholder="Введите название папки"
-                    value={dirName}
-                    onInput={(e) => setDirName(e.target.value)}
-                />
-                <button
-                    className="popup__submit"
-                    onClick={handleCreateDir}
-                >Создать</button>
+                <form
+                    className='popup__form'
+                    onSubmit={handleCreateDir}
+                >
+                    <Input
+                        placeholder="Введите название папки"
+                        value={dirName}
+                        onInput={(e) => setDirName(e.target.value)}
+                        autoFocus
+                    />
+                    <button
+                        className="popup__submit"
+                        type='submit'
+                    >Создать</button>
+                </form>
             </div>
         </div>
     );

@@ -6,8 +6,8 @@
     position: fixed;
     background-color: $text-color;
     color: $bg-color;
-    bottom: 0;
-    right: 0;
+    bottom: 10px;
+    right: 10px;
     padding: 20px;
     border-radius: 15px;
     overflow-y: auto;
@@ -21,22 +21,25 @@
 
     &__title {
         font-size: 22px;
-        font-weight: 400;
+        font-weight: 500;
     }
 
-    // &__close {
-    //     background-repeat: no-repeat;
-    //     background-position: center;
-    //     background-size: cover;
-    //     background-image: url("../../../assets/icons/close-icon.svg");
-    //     width: 25px;
-    //     height: 25px;
-    // }
+    &__close {
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 25px;
+        background-image: url("../../../assets/icons/close-icon.svg");
+        width: 30px;
+        height: 30px;
+        background-color: $bg-color;
+        border-radius: 50%;
+    }
 
     &__list {
         display: flex;
         flex-direction: column;
         gap: 5px;
+        margin: 10px 0;
     }
 }
 
@@ -55,6 +58,8 @@
     &__name {
         font-size: 18px;
         font-weight: 500;
+        max-width: 200px;
+        overflow-wrap: break-word;
     }
 
     &__remove {

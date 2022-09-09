@@ -1,14 +1,16 @@
 .file-list {
+    min-height: calc(100vh - 169px - 70px - 25px);
+
     &__header {
         display: grid;
-        grid-template-columns: 1fr 4fr repeat(4, 1fr);
+        grid-template-columns: 70px 4fr repeat(2, 58px) repeat(2, 1fr);
         font-size: 14px;
         justify-items: center;
     }
     &__header-name {
         grid-column-start: 2;
         justify-self: start;
-        margin-left: 20px;
+        margin-left: 100px;
     }
     &__header-date {
         grid-column-start: 5;
@@ -23,6 +25,7 @@
 .file-grid {
     display: flex;
     flex-wrap: wrap;
+    gap: 25px 0;
 }
 
 .file-enter {
@@ -50,6 +53,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: calc(100vh - 156px - 70px);
+    height: calc(100vh - 169px - 70px);
     font-size: 34px;
 }

@@ -18,4 +18,3 @@ export const appReducer = (state = initialState, action) => {
 
 export const showLoaderAction = () => ({ type: SHOW_LOADER })
 export const hideLoaderAction = () => ({ type: HIDE_LOADER })
-

@@ -1,8 +1,8 @@
 import { useInput } from '../../hooks/useInput';
-import { login } from '../../utils/api';
 import Input from '../Input/Input';
 import './Authorization.scss';
 import { useDispatch } from 'react-redux'
+import { loginAction } from '../../store/actions/userActions';
 
 function Login() {
     const { values, onChange } = useInput({ email: '', password: '' })
@@ -10,7 +10,7 @@ function Login() {
 
     function handleSubmitForm(e) {
         e.preventDefault()
-        dispatch(login(values))
+        dispatch(loginAction(values))
     }
 
     return (

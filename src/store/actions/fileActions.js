@@ -1,53 +1,12 @@
 import axios from 'axios'
-import { setUserAction } from '../store/reducers/userReducer'
-import { addFilrAction, deleteFileAction, setFiles } from '../store/reducers/fileReducer'
-import { apiConfig } from './apiConfig'
-import { addUploadFileAction, changeUploadFileAction, showUploaderAction } from '../store/reducers/uploadReducer'
 import uniqid from 'uniqid';
-import { hideLoaderAction, showLoaderAction } from '../store/reducers/appReducer'
+import { apiConfig } from '../../utils/apiConfig'
+import { setUserAction } from '../reducers/userReducer'
+import { addFilrAction, deleteFileAction, setFiles } from '../reducers/fileReducer'
+import { addUploadFileAction, changeUploadFileAction, showUploaderAction } from '../reducers/uploadReducer'
+import { hideLoaderAction, showLoaderAction } from '../reducers/appReducer'
 
-export const registration = async (values) => {
-    try {
-        const response = await axios.post('sign-up', values, apiConfig)
-        alert(response.data.message)
-    } catch (e) {
-        alert('Ошибка! ' + e.response.data.message)
-    }
-}
-
-export const login = (values) => {
-    return async (dispatch) => {
-        try {
-            const response = await axios.post('sign-in', values, apiConfig)
-
-            dispatch(setUserAction(response.data.user))
-            localStorage.setItem('jwt', response.data.token)
-        } catch (e) {
-            alert('Ошибка! ' + e.response.data.message)
-        }
-    }
-}
-
-export const auth = () => {
-    return async (dispatch) => {
-        try {
-            const response = await axios.get('auth', {
-                ...apiConfig,
-                headers: {
-                    Authorization: `Bearer ${localStorage.getItem('jwt')}`
-                }
-            })
-
-            dispatch(setUserAction(response.data.user))
-            localStorage.setItem('jwt', response.data.token)
-        } catch (e) {
-            localStorage.removeItem('jwt')
-            alert('Ошибка! ' + e.response.data.message)
-        }
-    }
-}
-
-export const getFiles = (dirId, sort) => {
+export const getFilesAction = (dirId, sort) => {
     return async (dispatch) => {
         try {
             dispatch(showLoaderAction())
@@ -71,7 +30,7 @@ export const getFiles = (dirId, sort) => {
     }
 }
 
-export const createDir = (dirId, name) => {
+export const createDirAction = (dirId, name) => {
     return async (dispatch) => {
         try {
             const response = await axios.post('files',
@@ -93,7 +52,7 @@ export const createDir = (dirId, name) => {
     }
 }
 
-export const uploadFile = (file, dirId) => {
+export const uploadFileAction = (file, dirId) => {
     return async (dispatch) => {
         try {
             const formData = new FormData()
@@ -136,7 +95,7 @@ export const uploadFile = (file, dirId) => {
     }
 }
 
-export const downloadFile = async (file) => {
+export const downloadFileAction = async (file) => {
     try {
         const response = await axios.get('files/download',
             {
@@ -163,7 +122,7 @@ export const downloadFile = async (file) => {
     }
 }
 
-export const deleteFile = (file) => {
+export const deleteFileBdAction = (file) => {
     return async (dispatch) => {
         try {
             const response = await axios.delete('files',
@@ -185,7 +144,7 @@ export const deleteFile = (file) => {
     }
 }
 
-export const searchFile = (query) => {
+export const searchFileAction = (query) => {
     return async (dispatch) => {
         try {
             const response = await axios.get('files/search',
@@ -208,7 +167,7 @@ export const searchFile = (query) => {
     }
 }
 
-export const uploadAvatar = (file) => {
+export const uploadAvatarAction = (file) => {
     return async (dispatch) => {
         try {
             const formData = new FormData()
@@ -230,7 +189,7 @@ export const uploadAvatar = (file) => {
     }
 }
 
-export const deleteAvatar = () => {
+export const deleteAvatarAction = () => {
     return async (dispatch) => {
         try {
             const response = await axios.delete('files/avatar',

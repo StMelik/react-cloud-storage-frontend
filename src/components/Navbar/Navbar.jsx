@@ -1,14 +1,14 @@
 
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useLocation } from 'react-router-dom';
 import diskIcon from '../../assets/icons/disk-icon.svg'
 import { showLoaderAction } from '../../store/reducers/appReducer';
 import { logoutAction } from '../../store/reducers/userReducer';
-import { getFiles, searchFile } from '../../utils/api';
 import { SERVER_URL } from '../../utils/constants';
 import './Navbar.scss';
 import avatarIcon from '../../assets/icons/avatar-icon.svg'
+import { getFilesAction, searchFileAction } from '../../store/actions/fileActions';
 
 function Navbar() {
     const { isAuth, currentUser } = useSelector(store => store.user)
@@ -19,6 +19,8 @@ function Navbar() {
     const avatarUrl = currentUser?.avatar
         ? SERVER_URL + '/' + currentUser.avatar
         : avatarIcon
+    const location = useLocation()
+    const isDiskPage = location.pathname === '/'
 
     const linkCl = ["nav__link", "nav__link_active"]
 
@@ -34,10 +36,10 @@ function Navbar() {
 
         if (value !== '') {
             setSearchTimeout(setTimeout((value) => {
-                dispatch(searchFile(value))
+                dispatch(searchFileAction(value))
             }, 500, value))
         } else {
-            dispatch(getFiles(currentDir))
+            dispatch(getFilesAction(currentDir))
         }
     }
 
@@ -59,13 +61,14 @@ function Navbar() {
 
                     {isAuth ?
                         <>
-                            <input
+                            {isDiskPage && <input
                                 className='nav__search'
                                 placeholder='Название файла'
                                 type="text"
                                 value={searchQuery}
                                 onChange={handleSearchFile}
-                            />
+                            />}
+
                             <div className="nav__buttons">
                                 <button
                                     className="nav__link"
