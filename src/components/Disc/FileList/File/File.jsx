@@ -19,7 +19,7 @@ function File({ file }) {
     function handleOpenDir() {
         if (isDir) {
             dispatch(setCurrentDir(file._id))
-            dispatch(pushToStackAction(currentDir))
+            dispatch(pushToStackAction(file))
         }
     }
 

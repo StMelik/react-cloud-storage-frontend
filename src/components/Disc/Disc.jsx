@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { getFilesAction, uploadFileAction } from '../../store/actions/fileActions';
-import { setCurrentDir, setPopupOpenedAction, setViewAction } from '../../store/reducers/fileReducer';
+import { popFromStackAction, setCurrentDir, setPopupOpenedAction, setViewAction } from '../../store/reducers/fileReducer';
 import Loader from '../Loader/Loader';
 import Popup from '../Popup/Popup';
 import './Disc.scss';
@@ -25,8 +25,9 @@ function Disc() {
     }
 
     function handleClickBack() {
-        const backDirId = dirStack.pop()
-        dispatch(setCurrentDir(backDirId))
+        const backDir = dirStack.at(-1)
+        dispatch(popFromStackAction())
+        dispatch(setCurrentDir(backDir.parent))
     }
 
     function handleFileUpload(event) {
@@ -52,6 +53,24 @@ function Disc() {
         let files = [...event.dataTransfer.files]
         files.forEach(file => dispatch(uploadFileAction(file, currentDir)))
         setDragEnter(false)
+    }
+
+    function getFoldersName(dirStack) {
+        if (dirStack.length === 0) {
+            return ''
+        }
+
+        const list = dirStack.map(dir => dir.name)
+
+        if (list.length > 4) {
+            const firstDir = list[0]
+            const twoLastDir = list.slice(-2)
+            const resultList = [firstDir, '...', ...twoLastDir]
+
+            return resultList.join(' > ')
+        }
+
+        return list.join(' > ')
     }
 
     if (loader) {
@@ -87,7 +106,7 @@ function Disc() {
                     onDragLeave={handleDragLeave}
                     onDragOver={handleDragEnter}
                 >
-                    <h2 className="disk__title">{'Моя музыка -> Любимые -> Гуф'}</h2>
+                    <h2 className="disk__title">{getFoldersName(dirStack)}</h2>
                     <div className="disk__menu">
                         {currentDir &&
                             <button
