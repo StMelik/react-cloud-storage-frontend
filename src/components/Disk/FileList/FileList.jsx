@@ -1,11 +1,10 @@
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import File from './File/File';
 import './FileList.scss';
 import { TransitionGroup, CSSTransition } from 'react-transition-group'
 
 function FileList({ files }) {
     const { view } = useSelector(store => store.files)
-    const dispatch = useDispatch()
 
     if (files.length === 0) {
         return <p className="empty">Файлы не найдены</p>

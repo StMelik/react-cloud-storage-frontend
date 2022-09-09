@@ -1,11 +1,11 @@
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Route, Routes, Navigate } from 'react-router-dom'
 import './App.css';
 import Navbar from './Navbar/Navbar';
-import { Route, Routes, Navigate } from 'react-router-dom'
 import Authorization from './Authorization/Authorization';
 import Login from './Authorization/Login';
-import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
-import Disc from './Disc/Disc';
+import Disk from './Disk/Disk';
 import Profile from './Profile/Profile';
 import { authAction } from '../store/actions/userActions';
 
@@ -19,7 +19,6 @@ function App() {
       dispatch(authAction())
     }
   }, [])
-
 
   return (
     <div className="app">
@@ -38,7 +37,7 @@ function App() {
         </Routes>
         :
         <Routes>
-          <Route path='/' element={<Disc />} />
+          <Route path='/' element={<Disk />} />
           <Route path='/profile' element={<Profile />} />
           <Route path='*' element={<Navigate to='/' replace />} />
         </Routes>

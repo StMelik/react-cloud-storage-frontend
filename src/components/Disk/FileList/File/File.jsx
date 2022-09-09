@@ -5,7 +5,7 @@ import { sizeFormat, nameFormat } from '../../../../utils/format';
 import './File.scss';
 
 function File({ file }) {
-    const { currentDir, view } = useSelector(store => store.files)
+    const { view } = useSelector(store => store.files)
     const dispatch = useDispatch()
 
     const isDir = file.type === 'dir'

@@ -4,11 +4,11 @@ import { getFilesAction, uploadFileAction } from '../../store/actions/fileAction
 import { popFromStackAction, setCurrentDir, setPopupOpenedAction, setViewAction } from '../../store/reducers/fileReducer';
 import Loader from '../Loader/Loader';
 import Popup from '../Popup/Popup';
-import './Disc.scss';
+import './Disk.scss';
 import FileList from './FileList/FileList';
 import Uploader from './Uploader/Uploader';
 
-function Disc() {
+function Disk() {
     const { loader } = useSelector(store => store.app)
     const { currentDir, files, popupOpened, dirStack } = useSelector(store => store.files)
     const dispatch = useDispatch()
@@ -153,4 +153,4 @@ function Disc() {
     );
 }
 
-export default Disc;
+export default Disk;
