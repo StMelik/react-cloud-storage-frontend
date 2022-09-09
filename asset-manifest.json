@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/static/css/main.a6931d6a.css",
+    "main.js": "/static/js/main.3d2f1d7d.js",
+    "static/media/disk-icon.svg": "/static/media/disk-icon.f478e73b5ba9999d1663e09f0794da4c.svg",
+    "static/media/add-folder-icon.svg": "/static/media/add-folder-icon.56feef39d7b09534f415.svg",
+    "static/media/download-icon.svg": "/static/media/download-icon.2b63e57dd41d7f0523f1.svg",
+    "static/media/back-icon.svg": "/static/media/back-icon.36ce88f220c259676fbc.svg",
+    "static/media/list-icon.svg": "/static/media/list-icon.378e656de91af30b715e.svg",
+    "static/media/avatar-icon.svg": "/static/media/avatar-icon.195f0c9dd80987159fd0d8fa64fd75b4.svg",
+    "static/media/folder-icon.svg": "/static/media/folder-icon.8fbb818a0094d0456944.svg",
+    "static/media/add-file-icon.svg": "/static/media/add-file-icon.df0f932212b88b224a67.svg",
+    "static/media/close-icon.svg": "/static/media/close-icon.3b19793102b63b94fc3d.svg",
+    "static/media/big-grid-icon.svg": "/static/media/big-grid-icon.00c1c34caf15f1997929.svg",
+    "static/media/delete-icon.svg": "/static/media/delete-icon.2b065c51331b05dd90d3.svg",
+    "static/media/file-icon.svg": "/static/media/file-icon.8524462869148b4f9cf9.svg",
+    "index.html": "/index.html",
+    "main.a6931d6a.css.map": "/static/css/main.a6931d6a.css.map",
+    "main.3d2f1d7d.js.map": "/static/js/main.3d2f1d7d.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a6931d6a.css",
+    "static/js/main.3d2f1d7d.js"
+  ]
+}
