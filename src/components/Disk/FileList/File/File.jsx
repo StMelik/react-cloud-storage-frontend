@@ -53,7 +53,10 @@ function File({ file }) {
                 />
 
                 <p className="file-item__date">{file.date.slice(0, 10)}</p>
-                <p className="file-item__size">{sizeFormat(file.size)}</p>
+                {!isDir &&
+                    <p className="file-item__size">{sizeFormat(file.size)}</p>
+                }
+
             </li>
         );
     }
