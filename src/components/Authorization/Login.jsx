@@ -1,14 +1,19 @@
 import { useInput } from '../../hooks/useInput';
 import Input from '../Input/Input';
 import './Authorization.scss';
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { loginAction } from '../../store/actions/userActions';
+import { showButtonLoaderAction } from '../../store/reducers/appReducer';
 
 function Login() {
     const { values, onChange } = useInput({ email: '', password: '' })
     const dispatch = useDispatch()
+    const { buttonLoader } = useSelector(state => state.app)
+
+    const textButton = buttonLoader ? "Вход ..." : "Войти"
 
     function handleSubmitForm(e) {
+        dispatch(showButtonLoaderAction())
         e.preventDefault()
         dispatch(loginAction(values))
     }
@@ -38,7 +43,7 @@ function Login() {
                     <button
                         className='authorization__form-submit'
                         type='submit'
-                    >Войти</button>
+                    >{textButton}</button>
                 </form>
             </div>
         </div>

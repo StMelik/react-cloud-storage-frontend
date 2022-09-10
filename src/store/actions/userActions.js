@@ -1,14 +1,20 @@
 import axios from 'axios'
 import { apiConfig } from '../../utils/apiConfig';
+import { hideButtonLoaderAction } from '../reducers/appReducer';
 import { setUserAction } from '../reducers/userReducer';
 
-export const registration = async (values) => {
-    try {
-        const response = await axios.post('sign-up', values, apiConfig)
-        alert(response.data.message)
-    } catch (e) {
-        alert('Ошибка! ' + e.response.data.message)
+export const registrationAction = (values) => {
+    return async (dispatch) => {
+        try {
+            const response = await axios.post('sign-up', values, apiConfig)
+            alert(response.data.message)
+        } catch (e) {
+            alert('Ошибка! ' + e.response.data.message)
+        } finally {
+            dispatch(hideButtonLoaderAction())
+        }
     }
+
 }
 
 export const loginAction = (values) => {
@@ -20,6 +26,8 @@ export const loginAction = (values) => {
             localStorage.setItem('jwt', response.data.token)
         } catch (e) {
             alert('Ошибка! ' + e.response.data.message)
+        } finally {
+            dispatch(hideButtonLoaderAction())
         }
     }
 }

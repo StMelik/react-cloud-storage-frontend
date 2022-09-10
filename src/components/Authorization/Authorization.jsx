@@ -1,14 +1,21 @@
+import { useDispatch, useSelector } from 'react-redux'
 import { useInput } from '../../hooks/useInput';
-import { registration } from '../../store/actions/userActions';
+import { registrationAction } from '../../store/actions/userActions';
+import { showButtonLoaderAction } from '../../store/reducers/appReducer';
 import Input from '../Input/Input';
 import './Authorization.scss';
 
 function Authorization() {
+    const dispatch = useDispatch()
+    const { buttonLoader } = useSelector(state => state.app)
     const { values, onChange } = useInput({ email: '', password: '' })
 
+    const textButton = buttonLoader ? "Регистрация ..." : "Зарегестрироваться"
+
     function handleSubmitForm(e) {
+        dispatch(showButtonLoaderAction())
         e.preventDefault()
-        registration(values)
+        dispatch(registrationAction(values))
     }
 
     return (
@@ -36,7 +43,7 @@ function Authorization() {
                     <button
                         className='authorization__form-submit'
                         type='submit'
-                    >Зарегестрироваться</button>
+                    >{textButton}</button>
                 </form>
             </div>
         </div>
